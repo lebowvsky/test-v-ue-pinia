@@ -61,6 +61,29 @@ $color: rgb(29, 28, 28);
 
   .field {
     margin: 20px 0;
+
+    input,
+    textarea {
+      width: 100%;
+      background-color: rgba($color: white, $alpha: 0.8);
+      border: none;
+      box-sizing: border-box;
+      padding: 8px 15px;
+      border-radius: 3px;
+    }
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(43, 198, 43);
+    padding: 8px 20px;
+    color: white;
+
+    &:hover {
+      background-color: rgb(34, 161, 34);
+    }
   }
 }
 </style>

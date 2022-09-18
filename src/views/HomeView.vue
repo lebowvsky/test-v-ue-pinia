@@ -13,8 +13,14 @@
             </div>
             <p>{{ task.text }}</p>
             <div class="buttons-wrapper">
-              <button @click="removeTask(task)">Effacer tâche</button>
-              <button v-if="!task.completed" @click="editTask(task)">
+              <button @click="removeTask(task)" class="remove">
+                Effacer tâche
+              </button>
+              <button
+                v-if="!task.completed"
+                @click="editTask(task)"
+                class="edit"
+              >
                 Éditer tâche
               </button>
             </div>
@@ -56,9 +62,10 @@ const editTask = (task: Task) => {
 
     .tasks-wrapper {
       .tw-task {
-        background-color: beige;
+        background-color: rgb(167, 208, 164);
         border-radius: 10px;
         padding: 10px 20px;
+        margin: 15px 0;
         width: 600px;
 
         .title-wrapper {
@@ -66,6 +73,30 @@ const editTask = (task: Task) => {
 
           input {
             margin: 0 10px 0 0;
+          }
+        }
+
+        button {
+          cursor: pointer;
+          border: none;
+          border-radius: 5px;
+          padding: 8px 20px;
+          color: white;
+          margin-right: 15px;
+
+          &.edit {
+            background-color: rgb(108, 97, 204);
+
+            &:hover {
+              background-color: rgb(79, 71, 151);
+            }
+          }
+          &.remove {
+            background-color: rgb(204, 104, 97);
+
+            &:hover {
+              background-color: rgb(154, 78, 73);
+            }
           }
         }
       }
