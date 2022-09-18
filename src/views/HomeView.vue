@@ -1,18 +1,75 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <h1 class="title">My Todo app...</h1>
+    <StatisticsComponent />
+    <div class="container">
+      <div class="tasks-wrapper">
+        <h2>Mes tâches</h2>
+        <div class="tasks-wrapper">
+          <div class="tw-task" v-for="task in tasksStore.tasks" :key="task.id">
+            <div class="title-wrapper">
+              <input type="checkbox" v-model="task.completed" :id="task.id" />
+              <h3>{{ task.title }}</h3>
+            </div>
+            <p>{{ task.text }}</p>
+            <div class="buttons-wrapper">
+              <button @click="removeTask(task)">Effacer tâche</button>
+              <button v-if="!task.completed" @click="editTask(task)">
+                Éditer tâche
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <FormComponent />
+    </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+<script setup lang="ts">
+import StatisticsComponent from "@/components/StatisticsComponent.vue";
+import FormComponent from "@/components/FormComponent.vue";
+import { Task } from "@/definitions/task";
+import { useTasksStore } from "@/stores/task";
 
-export default defineComponent({
-  name: "HomeView",
-  components: {
-    HelloWorld,
-  },
-});
+const tasksStore = useTasksStore();
+
+const removeTask = (task: Task) => {
+  tasksStore.removeTask(task.id);
+};
+
+const editTask = (task: Task) => {
+  tasksStore.selectedTask = task;
+  tasksStore.removeTask(task.id);
+};
 </script>
+
+<style lang="scss" scoped>
+.home {
+  .container {
+    margin: 50px 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 20px;
+
+    .tasks-wrapper {
+      .tw-task {
+        background-color: beige;
+        border-radius: 10px;
+        padding: 10px 20px;
+        width: 600px;
+
+        .title-wrapper {
+          display: flex;
+
+          input {
+            margin: 0 10px 0 0;
+          }
+        }
+      }
+    }
+  }
+}
+</style>
